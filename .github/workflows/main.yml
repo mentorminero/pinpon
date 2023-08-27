@@ -1,4 +1,4 @@
-name: Despliegue con Secreto
+name: Desplegar en GitHub Pages
 
 on:
   push:
@@ -6,27 +6,28 @@ on:
       - main
 
 jobs:
-  despliegue-con-secreto:
+  despliegue:
     runs-on: ubuntu-latest
-    
-    env:
-      PINPON_SECRET: ${{ secrets.PINPON_SECRET }}
-      PINPON_ENV: ${{ secrets.pinpon_env }}
 
     steps:
-      - name: Check out code
+      - name: Checkout del código
         uses: actions/checkout@v2
 
-      - name: Modificar página web
+      - name: Configurar secretos como variables de entorno
+        env:
+          MI_SECRETO: ${{ secrets.MI_SECRETO }}
         run: |
-          # Agregar el secreto al archivo JavaScript
-          echo "const secretValue = '$PINPON_SECRET';" > Express.js
+          echo "El valor del secreto es: $MI_SECRETO"
 
-      - name: Desplegar HTML en GitHub Pages
+      - name: Copiar archivos HTML y JavaScript al directorio de despliegue
+        run: |
+          cp index.html script.js ${{ github.workspace }}
+
+      - name: Desplegar en GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./
-          publish_branch: gh-pages
 
 
 
