@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: PINPON_ENV
+      environment: 
+      
+      url: https://github.com
     steps:
       - name: Check out code
         uses: actions/checkout@v2
