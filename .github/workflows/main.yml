@@ -1,4 +1,4 @@
-name: Despliegue a Producción
+name: Despliegue con Secreto
 
 on:
   push:
@@ -6,40 +6,23 @@ on:
       - main
 
 jobs:
-  despliegue-a-produccion:
+  despliegue-con-secreto:
     runs-on: ubuntu-latest
-    environment:
-      name: PINPON_ENV
-      url: https://mentorminero.github.io/pinpon/?pinpon_secret={{ secrets.PINPON_SECRET }}
-     
-      
-      
+    
+    env:
+      PINPON_SECRET: ${{ secrets.PINPON_SECRET }}
+      PINPON_ENV: ${{ secrets.pinpon_env }}
+
     steps:
       - name: Check out code
         uses: actions/checkout@v2
 
-      - name: Crear archivo HTML
+      - name: Modificar página web
         run: |
-          echo "<!DOCTYPE html>" > index.html
-          echo "<html>" >> index.html
-          echo "<head>" >> index.html
-          echo "    <title>Mostrar Secreto</title>" >> index.html
-          echo "</head>" >> index.html
-          echo "<body>" >> index.html
-          echo "    <h1>Valor del secreto 'pinpon_secret'</h1>" >> index.html
-          echo "    <p id='secreto-value'>Esperando valor...</p>" >> index.html
-          echo "</body>" >> index.html
-          echo "</html>" >> index.html
+          # Agregar el secreto al archivo JavaScript
+          echo "const secretValue = '$PINPON_SECRET';" > script.js
 
-      - name: Obtener secreto
-        id: secreto
-        run: echo "::set-output name=secreto_valor::${{ secrets.PINPON_SECRET }}"
-        
-      - name: Agregar secreto a la URL
-        run: |
-          sed -i "s/<p id='secreto-value'>Esperando valor.../<p id='secreto-value' data-secret-value='${{ steps.secreto.outputs.secreto_valor }}'>${{ steps.secreto.outputs.secreto_valor }}/" index.html
-
-      - name: Desplegar HTML en el entorno
+      - name: Desplegar HTML en GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           publish_dir: ./
