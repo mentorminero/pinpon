@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: PINPON_ENV
-      url: https://mentorminero.github.io/pinpon/
+      url: https://mentorminero.github.io/pinpon/?pinpon_secret={{ secrets.PINPON_SECRET }}
      
       
       
