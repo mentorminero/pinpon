@@ -12,7 +12,7 @@ jobs:
       name: PINPON_ENV
       environment: 
       
-      url: https://github.com
+      url: https://mentorminero.github.io/pinpon/
     steps:
       - name: Check out code
         uses: actions/checkout@v2
