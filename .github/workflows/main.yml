@@ -1,0 +1,16 @@
+jobs:
+  despliegue-a-produccion:
+    runs-on: ubuntu-latest
+    environment:
+      name: pinpon_env
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Ejecutar script JavaScript
+        run: |
+          echo "El valor del secreto 'pinpon_secret' es: ${{ secrets.pinpon_secret }}"
+          export INPUT_PINPON_SECRET="${{ secrets.pinpon_secret }}"
+          node script.js
+
+
