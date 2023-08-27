@@ -1,10 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="script.js"></script>
     <title>Mostrar Secreto</title>
 </head>
 <body>
-    <h1>Valor del secreto "pinpon_secret"</h1>   
-    </body>
+    <h1>Valor del secreto "pinpon_secret"</h1>
+    <p id="secreto-value">Esperando valor...</p>
+
+    <script>
+        // Obtener el valor pasado como parámetro y mostrarlo en la consola
+        const urlParams = new URLSearchParams(window.location.search);
+        const secretValue = urlParams.get("pinpon_secret");
+        console.log(`El valor del secreto es: ${secretValue}`);
+    </script>
+</body>
 </html>
+

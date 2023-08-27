@@ -7,10 +7,33 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
 
-      - name: Ejecutar script JavaScript
+      - name: Crear archivo HTML
         run: |
-          echo "El valor del secreto 'pinpon_secret' es: ${{ secrets.pinpon_secret }}"
-          export INPUT_PINPON_SECRET="${{ secrets.pinpon_secret }}"
-          node script.js
+          echo "<!DOCTYPE html>" > index.html
+          echo "<html>" >> index.html
+          echo "<head>" >> index.html
+          echo "    <title>Mostrar Secreto</title>" >> index.html
+          echo "</head>" >> index.html
+          echo "<body>" >> index.html
+          echo "    <h1>Valor del secreto 'pinpon_secret'</h1>" >> index.html
+          echo "    <p id='secreto-value'>Esperando valor...</p>" >> index.html
+          echo "</body>" >> index.html
+          echo "</html>" >> index.html
+
+      - name: Obtener secreto
+        id: secreto
+        run: echo "::set-output name=secreto_valor::${{ secrets.pinpon_secret }}"
+        
+      - name: Agregar secreto a la URL
+        run: |
+          sed -i "s/<p id='secreto-value'>Esperando valor.../<p id='secreto-value' data-secret-value='${{ steps.secreto.outputs.secreto_valor }}'>${{ steps.secreto.outputs.secreto_valor }}/" index.html
+
+      - name: Desplegar HTML en el entorno
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          publish_dir: ./
+          publish_branch: gh-pages
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
 
 
