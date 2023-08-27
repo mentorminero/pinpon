@@ -29,7 +29,7 @@ jobs:
 
       - name: Obtener secreto
         id: secreto
-        run: echo "::set-output name=secreto_valor::${{ secrets.pinpon_secret }}"
+        run: echo "::set-output name=secreto_valor::${{ secrets.PINPON_SECRET }}"
         
       - name: Agregar secreto a la URL
         run: |
