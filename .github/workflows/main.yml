@@ -1,3 +1,10 @@
+name: Despliegue a Producción
+
+on:
+  push:
+    branches:
+      - main
+
 jobs:
   despliegue-a-produccion:
     runs-on: ubuntu-latest
@@ -33,7 +40,7 @@ jobs:
         with:
           publish_dir: ./
           publish_branch: gh-pages
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
 
 
 
