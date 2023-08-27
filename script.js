@@ -1,5 +1,3 @@
-// Obtener el valor del secreto desde una variable de entorno de JavaScript
-const secretValue = process.env.PINPON_SECRET;
+// Ahora puedes acceder a la variable "secreto" aquí en tu script
+console.log(`El valor del secreto es: ${secreto}`);
 
-// Mostrar el valor en la consola
-console.log(`El valor del secreto es: ${secretValue}`);
