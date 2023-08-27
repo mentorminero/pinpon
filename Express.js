@@ -7,7 +7,7 @@ app.get('/', (req, res) => {
   const secreto = process.env.PINPON_SECRET;
   
   // Envía el secreto como parte de la respuesta HTTP al cliente
-  res.send(`<script>const secreto = "${secreto}";</script>`);
+  res.send(`<script src="script.js" data-secreto="${secreto}"></script>`);
 });
 
 app.listen(port, () => {
