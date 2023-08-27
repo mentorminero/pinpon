@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Mostrar Secreto</title>
@@ -11,8 +12,16 @@
         // Obtener el valor pasado como parámetro y mostrarlo en la consola
         const urlParams = new URLSearchParams(window.location.search);
         const secretValue = urlParams.get("pinpon_secret");
-        console.log(`El valor del secreto es: ${secretValue}`);
+
+        // Actualizar el valor en el párrafo
+        const secretoValueElement = document.getElementById("secreto-value");
+        if (secretValue !== null) {
+            secretoValueElement.textContent = `El valor del secreto es: ${secretValue}`;
+        } else {
+            secretoValueElement.textContent = "El valor del secreto no se ha pasado en la URL.";
+        }
     </script>
 </body>
 </html>
+
 
