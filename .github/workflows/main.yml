@@ -9,7 +9,7 @@ jobs:
   despliegue-a-produccion:
     runs-on: ubuntu-latest
     environment:
-      name: pinpon_env
+      name: PINPON_ENV
     steps:
       - name: Check out code
         uses: actions/checkout@v2
