@@ -1,7 +1,18 @@
-- name: Verificar valor de MI_SECRETO
-  run: echo "Valor de MI_SECRETO: $MI_SECRETO"
+name: Imprimir valor de MI_SECRETO
 
+on:
+  push:
+    branches:
+      - main
 
+jobs:
+  mi_trabajo:
+    runs-on: ubuntu-latest
 
-
-
+    steps:
+      - name: Configurar secretos como variables de entorno
+        env:
+          MI_SECRETO: ${{ secrets.MI_SECRETO }}
+        run: |
+          # Aquí configuramos la variable de entorno MI_SECRETO
+          echo "El valor del secreto es: $MI_SECRETO"
