@@ -1,33 +1,6 @@
-name: Desplegar en GitHub Pages
+- name: Verificar valor de MI_SECRETO
+  run: echo "Valor de MI_SECRETO: $MI_SECRETO"
 
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  despliegue:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout del código
-        uses: actions/checkout@v2
-
-      - name: Configurar secretos como variables de entorno
-        env:
-          MI_SECRETO: ${{ secrets.MI_SECRETO }}
-        run: |
-          echo "El valor del secreto es: $MI_SECRETO"
-
-      - name: Copiar archivos HTML y JavaScript al directorio de despliegue
-        run: |
-          cp index.html script.js ${{ github.workspace }}
-
-      - name: Desplegar en GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./
 
 
 
